@@ -1,0 +1,61 @@
+# Запись в реестре для Zombies Are Running — шаблон.
+#
+# Такую запись создаёт форма playhorizon.dev/mods/submit (она открывает PR в
+# horizon-rust/horizon-mods и кладёт этот файл как mods/zombies_are_running.toml).
+# Здесь всё заполнено, кроме того, что зависит от вашего GitHub:
+#   — source:    ссылка на ВАШ публичный репозиторий с этим кодом;
+#   — owners:    ваш GitHub-логин (форма ставит его сама при входе через GitHub);
+#   — owner_ids: числовой id GitHub (форма подставляет сама; если заполняете руками,
+#                его видно на https://api.github.com/users/<логин>).
+#
+# Поля api / side / capabilities / hooks / broken_on руками не пишутся: CI читает
+# их из файла .hnmod (у нас "hooks": 146).
+
+id = "zombies_are_running"
+kind = "native-mod"
+name = "Zombies Are Running"
+summary = "Zombies chase you in bursts: 12-20 s of running, then 4-8 s of walking to catch their breath."
+description = """
+Zombies no longer run at you forever. A zombie that has a target does it in bursts:
+
+- **Sprint — 12 to 20 seconds.** It runs at its prey: movement speed x2.0.
+- **Cooldown — 4 to 8 seconds.** It catches its breath and walks after its prey: movement speed x0.5.
+- Then it runs again, for as long as it has something to chase.
+
+Each zombie draws its own lengths from those ranges, so a crowd never runs and rests in step: there
+is always one running at you and always a moment to get away.
+
+- It drives the whole zombie family by default: zombie, husk, drowned and zombie villager. Skeletons,
+  zombified piglins, zoglins, giants and players are never touched; the **Zombies** button in
+  Settings narrows it to plain zombies.
+- Only a zombie **with a target** changes speed: an idle zombie walks exactly as the game made it.
+- It runs on the server side (single player, and the server thread of a LAN world), so every player
+  sees the same zombies.
+- **Options > Mods** has the mod's switch; **Settings** picks the run speed (x1.5 to x3.5), the
+  walking speed (x0.4 to x0.75) and which zombies it drives.
+
+It adds no blocks, items or assets and keeps its three settings in
+`horizon-mods/.horizon-mod-data/zombies_are_running/`.
+
+By Bogdan_Tokarev. MIT.
+"""
+authors = ["Bogdan_Tokarev"]
+owners = ["<ваш-github-логин>"]
+owner_ids = [0] # <- числовой GitHub id вашего аккаунта (форма заполнит сама)
+license = "MIT"
+source = "https://github.com/<ваш-логин>/zombies-are-running"
+icon = "icons/zombies_are_running.png"
+categories = ["game-mechanics", "adventure"]
+tags = ["zombies", "mobs", "ai", "difficulty", "chase"]
+
+[[versions]]
+version = "1.1.0"
+published = "2026-11-07"
+game = "26.3"
+file = "zombies_are_running-1.1.0.hnmod"
+sha256 = "0c4ada349a4aca052fd90e23717f3f9a33fd255cf2949a1f3dbede325bd973e1"
+changelog = """
+Runs and breaths are per zombie (12-20 s of running, 4-8 s of walking), a target is required before a
+zombie's speed changes at all, the whole zombie family is driven by default, and the settings page adds
+the walking speed and the family button.
+"""

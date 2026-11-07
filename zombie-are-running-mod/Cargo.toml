@@ -1,0 +1,12 @@
+[package]
+name = "horizon-mod-zombies-are-running"
+version = "1.1.0"
+edition = "2024"
+license = "MIT"
+publish = false
+authors = ["Bogdan_Tokarev"]
+description = "Zombies Are Running, a native mod for Horizon: zombies chase you in bursts of running and walking. By Bogdan_Tokarev."
+
+# The mod's logic and its tests: the same file the bundle adds to the game.
+[lib]
+path = "mixins/zombies_are_running/runtime.rs"
